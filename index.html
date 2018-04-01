@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Quick VR VN Framework</title>
+  <!-- A-Frame
+  This javascript framework handles the 3D & VR part of the game.
+  Licence: MIT
+  -->
+  <script src="https://aframe.io/releases/0.8.0/aframe.min.js"></script>
+  <!--
+  This A-Frame component is intended for showing logs.
+  It is repurposed for showing text to the player instead.
+  Licence: MIT
+  -->
+  <script src="https://unpkg.com/aframe-log-component/dist/aframe-log-component.min.js"></script>
+<body>
+  <script>
+    AFRAME.registerComponent('visualnovel', {
+      init: function() {
+        var el = this.el;
+
+        // Tracks the current position of the visual novel.
+        var dialogue_position = 0;
+
+        // When the user clicks on this component, do this.
+        el.addEventListener('click', function() {
+        
+          // This is the dialogue of the visual novel.
+          var dialogue = ["Test 1",
+                       "Test 2",
+                       "Test 3"];
+
+          // Get the length of the visual novel string array.
+          var vn_length = dialogue.length;
+          
+          // Output line text to the player
+          el.sceneEL.emit(AFRAME.log(dialogue[dialogue_position]));
+          
+          //Advance Dialogue
+          dialogue_position ++;
+
+          // Reset line position if it goes over.
+          if (vn_length > dialogue_position) {
+            dialogue_position --;
+          }
+          
+        })
+      },
+    });
+  </script>
+  <a-scene>
+    
+    <!--Locked Location Camera
+    Allows the player to loock arround, but restricts movement.
+    -->
+    <a-entity camera look-controls position="0 1.5 0"
+    <a-plane visual-novel opacity="0.0"></a-plane>
+    <a-entity log geometry="primative: plane" material="color: #BEBEBE" text="color: #000000" scale="2 1 1" position="0 0 -1"></a-entity>
+    ></a-entity>
+    
+    <!--Skysphere-->
+    <a-sky color="#FF7300"></a-sky>
+  </a-scene>
+  </div>
+</body>
+</html>
+<!--https://github.com/Animarathon/Quick-VR-VN-Engine-->
